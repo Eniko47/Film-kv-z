@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filmkvíz</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .quiz-container { max-width: 600px; margin: auto; }
+        .question { margin-bottom: 10px; }
+        .options button { margin: 5px; padding: 10px; cursor: pointer; }
+        .correct { background-color: lightgreen; }
+        .wrong { background-color: lightcoral; }
+    </style>
+</head>
+<body>
+    <h1>Filmkvíz</h1>
+    <div class="quiz-container" id="quiz"></div>
+
+    <script>
+        const questions = [
+            { image: "1.jpg", correct: "Holt költők társasága", options: ["Zabhegyező", "Az ifjú Sherlock Holmes"] },
+            { image: "2.jpg", correct: "Dr. House", options: ["A Grace klinika", "Doktor Murphy"] },
+            { image: "3.jpg", correct: "A kőszívű ember fiai", options: ["Az aranyember", "Egri csillagok"] },
+            { image: "4.jpg", correct: "Mátrix", options: ["Eredet", "Johnny Mnemonic"] },
+            { image: "5.jpg", correct: "Bridget Jones naplója", options: ["Holiday", "Igazából szerelem"] },
+            { image: "6.jpg", correct: "Szeleburdi vakáció", options: ["Szeleburdi család", "Égig érő fű"] },
+            { image: "7.jpg", correct: "Napfivér, Holdnővér", options: ["Legyetek jók, ha tudtok", "A misszió"] },
+            { image: "8.jpg", correct: "Valami Amerika", options: ["Valami Amerika 2", "Üvegtigris"] },
+            { image: "9.jpg", correct: "Árvácska", options: ["Indul a Bakterház", "Légy jó mindhalálig"] },
+            { image: "10.jpg", correct: "Argo", options: ["Kontroll", "A Viszkis"] }
+        ];
+
+        const quizContainer = document.getElementById("quiz");
+
+        questions.forEach((q, index) => {
+            const div = document.createElement("div");
+            div.classList.add("question");
+            div.innerHTML = `<img src="${q.image}" alt="Film kép" style="width:100%"><br>`;
+
+            const optionsDiv = document.createElement("div");
+            optionsDiv.classList.add("options");
+
+            let answers = [q.correct, ...q.options].sort(() => Math.random() - 0.5);
+            answers.forEach(answer => {
+                let button = document.createElement("button");
+                button.textContent = answer;
+                button.onclick = function() {
+                    if (answer === q.correct) {
+                        button.classList.add("correct");
+                    } else {
+                        button.classList.add("wrong");
+                    }
+                };
+                optionsDiv.appendChild(button);
+            });
+
+            div.appendChild(optionsDiv);
+            quizContainer.appendChild(div);
+        });
+    </script>
+</body>
+</html>
